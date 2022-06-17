@@ -300,7 +300,7 @@ services:
 #    links:
 #      - admin_gw
     volumes:
-      - ../sellgar.admin.ui/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./sellgar.admin.ui/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
     environment:
       - NODE_ENV=production
 #
