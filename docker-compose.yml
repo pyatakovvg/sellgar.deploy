@@ -2,328 +2,328 @@
 version: "3.7"
 services:
 
-  db:
-    container_name: postgre_sql
-    build: ./postgresql
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    ports:
-      - 50004:5432
-
-
-  rabbit:
-    container_name: rabbit_mq
-    build: ./rabbit
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    ports:
-      - 50002:15672
-
-
-  mail_srv:
-    container_name: mail_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.mail-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-
-
-  identity_srv:
-    container_name: identity_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.identity-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-      - mail_srv
-    links:
-      - db
-      - mail_srv
-
-
-  customer_srv:
-    container_name: customer_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.customer-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-    links:
-      - db
-
-
-  seller_srv:
-    container_name: seller_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.seller-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-    links:
-      - db
-
-
-  gallery_srv:
-    container_name: gallery_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.gallery-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-    links:
-      - db
-
-
-  promotion_srv:
-    container_name: promotion_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.promotion-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-      - rabbit
-    links:
-      - db
-      - rabbit
-
-
-  shop_srv:
-    container_name: shop_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.shop-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-      - rabbit
-    links:
-      - db
-      - rabbit
-
-
-  pikassa_srv:
-    container_name: pikassa_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.pikassa-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-      - rabbit
-    links:
-      - db
-      - rabbit
-    ports:
-    - 15051:8080
-
-
-  operation_srv:
-    container_name: operation_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.operation-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-      - rabbit
-      - mail_srv
-      - customer_srv
-      - promotion_srv
-      - pikassa_srv
-      - gallery_srv
-    links:
-      - db
-      - rabbit
-      - mail_srv
-      - customer_srv
-      - product_srv
-
-
-  product_srv:
-    container_name: product_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.product-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-      - rabbit
-      - mail_srv
-      - shop_srv
-      - gallery_srv
-      - promotion_srv
-    links:
-      - db
-      - rabbit
-      - mail_srv
-      - shop_srv
-      - gallery_srv
-      - promotion_srv
-
-
-  admin_gw:
-    container_name: admin_gw
-    build:
-      context: ./
-      dockerfile: Dockerfile.admin-gw
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - rabbit
-      - shop_srv
-      - product_srv
-      - gallery_srv
-      - identity_srv
-      - operation_srv
-      - customer_srv
-      - promotion_srv
-    links:
-      - rabbit
-      - shop_srv
-      - product_srv
-      - gallery_srv
-      - identity_srv
-      - operation_srv
-      - customer_srv
-      - promotion_srv
-
-
-  client_gw:
-    container_name: client_gw
-    build:
-      context: ./
-      dockerfile: Dockerfile.client-gw
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - rabbit
-      - shop_srv
-      - product_srv
-      - gallery_srv
-      - identity_srv
-      - operation_srv
-      - promotion_srv
-    links:
-      - rabbit
-      - shop_srv
-      - product_srv
-      - gallery_srv
-      - identity_srv
-      - operation_srv
-      - promotion_srv
-
-
-  admin_ui:
-    container_name: admin_ui
-    build:
-      context: ./
-      dockerfile: Dockerfile.admin-ui
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - admin_gw
-    links:
-      - admin_gw
-    volumes:
-      - ./clients/admin-ui/nginx/conf.d:/etc/nginx/conf.d:ro
-    environment:
-      - NODE_ENV=production
-
-
-  client_ui:
-    container_name: client_ui
-    build:
-      context: ./
-      dockerfile: Dockerfile.client-ui
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - client_gw
-    links:
-      - client_gw
-    volumes:
-      - ./clients/client-ui/nginx/conf.d:/etc/nginx/conf.d:ro
-    environment:
-      - NODE_ENV=production
+#  db:
+#    container_name: postgre_sql
+#    build: ./postgresql
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    ports:
+#      - 50004:5432
+#
+#
+#  rabbit:
+#    container_name: rabbit_mq
+#    build: ./rabbit
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    ports:
+#      - 50002:15672
+#
+#
+#  mail_srv:
+#    container_name: mail_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.mail-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#
+#
+#  identity_srv:
+#    container_name: identity_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.identity-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#      - mail_srv
+#    links:
+#      - db
+#      - mail_srv
+#
+#
+#  customer_srv:
+#    container_name: customer_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.customer-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#    links:
+#      - db
+#
+#
+#  seller_srv:
+#    container_name: seller_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.seller-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#    links:
+#      - db
+#
+#
+#  gallery_srv:
+#    container_name: gallery_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.gallery-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#    links:
+#      - db
+#
+#
+#  promotion_srv:
+#    container_name: promotion_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.promotion-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#      - rabbit
+#    links:
+#      - db
+#      - rabbit
+#
+#
+#  shop_srv:
+#    container_name: shop_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.shop-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#      - rabbit
+#    links:
+#      - db
+#      - rabbit
+#
+#
+#  pikassa_srv:
+#    container_name: pikassa_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.pikassa-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#      - rabbit
+#    links:
+#      - db
+#      - rabbit
+#    ports:
+#    - 15051:8080
+#
+#
+#  operation_srv:
+#    container_name: operation_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.operation-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#      - rabbit
+#      - mail_srv
+#      - customer_srv
+#      - promotion_srv
+#      - pikassa_srv
+#      - gallery_srv
+#    links:
+#      - db
+#      - rabbit
+#      - mail_srv
+#      - customer_srv
+#      - product_srv
+#
+#
+#  product_srv:
+#    container_name: product_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.product-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#      - rabbit
+#      - mail_srv
+#      - shop_srv
+#      - gallery_srv
+#      - promotion_srv
+#    links:
+#      - db
+#      - rabbit
+#      - mail_srv
+#      - shop_srv
+#      - gallery_srv
+#      - promotion_srv
+#
+#
+#  admin_gw:
+#    container_name: admin_gw
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.admin-gw
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - rabbit
+#      - shop_srv
+#      - product_srv
+#      - gallery_srv
+#      - identity_srv
+#      - operation_srv
+#      - customer_srv
+#      - promotion_srv
+#    links:
+#      - rabbit
+#      - shop_srv
+#      - product_srv
+#      - gallery_srv
+#      - identity_srv
+#      - operation_srv
+#      - customer_srv
+#      - promotion_srv
+#
+#
+#  client_gw:
+#    container_name: client_gw
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.client-gw
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - rabbit
+#      - shop_srv
+#      - product_srv
+#      - gallery_srv
+#      - identity_srv
+#      - operation_srv
+#      - promotion_srv
+#    links:
+#      - rabbit
+#      - shop_srv
+#      - product_srv
+#      - gallery_srv
+#      - identity_srv
+#      - operation_srv
+#      - promotion_srv
+#
+#
+#  admin_ui:
+#    container_name: admin_ui
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.admin-ui
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - admin_gw
+#    links:
+#      - admin_gw
+#    volumes:
+#      - ./clients/admin-ui/nginx/conf.d:/etc/nginx/conf.d:ro
+#    environment:
+#      - NODE_ENV=production
+#
+#
+#  client_ui:
+#    container_name: client_ui
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.client-ui
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - client_gw
+#    links:
+#      - client_gw
+#    volumes:
+#      - ./clients/client-ui/nginx/conf.d:/etc/nginx/conf.d:ro
+#    environment:
+#      - NODE_ENV=production
 
 
   certbot:
@@ -353,10 +353,8 @@ services:
         max-size: 10m
     depends_on:
       - admin_ui
-      - client_ui
     links:
       - admin_ui
-      - client_ui
     ports:
       - 80:80
       - 443:443
