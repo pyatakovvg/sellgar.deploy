@@ -224,17 +224,17 @@ services:
 #      - promotion_srv
 #
 #
-#  admin_gw:
-#    container_name: admin_gw
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.admin-gw
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
+  admin_gw:
+    container_name: admin_gw
+    build:
+      context: ./
+      dockerfile: Dockerfile.admin-gw
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
 #    depends_on:
 #      - rabbit
 #      - shop_srv
@@ -253,8 +253,8 @@ services:
 #      - operation_srv
 #      - customer_srv
 #      - promotion_srv
-#
-#
+
+
 #  client_gw:
 #    container_name: client_gw
 #    build:
@@ -295,16 +295,16 @@ services:
       options:
         max-file: "5"
         max-size: 10m
-#    depends_on:
-#      - admin_gw
-#    links:
-#      - admin_gw
+    depends_on:
+      - admin_gw
+    links:
+      - admin_gw
     volumes:
       - ./sellgar.admin.ui/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
     environment:
       - NODE_ENV=production
-#
-#
+
+
 #  client_ui:
 #    container_name: client_ui
 #    build:
