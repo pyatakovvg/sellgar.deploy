@@ -6,9 +6,9 @@ RUN apk update && apk add bash
 RUN npm install -g npm@latest
 RUN npm config set package-lock false
 
-WORKDIR /app
+WORKDIR /admin
 
-COPY ../sellgar.admin/             ./clients/admin-ui/
+COPY ../sellgar.admin.ui/             ./
 
 RUN yarn
 
@@ -16,13 +16,13 @@ RUN chmod +x ./builder.sh
 RUN ./builder.sh
 
 # BUILD APPLICATION
-WORKDIR /app/clients/admin-ui
+WORKDIR /admin/app/client
 RUN ["yarn", "run", "build"]
 
 # START NGINX
 FROM nginx
 
-COPY --from=ui /app/clients/admin-ui/build /app
+COPY --from=ui /admin/app/client/build /admin
 
 WORKDIR /etc/nginx
 

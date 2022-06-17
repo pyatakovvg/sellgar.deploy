@@ -282,8 +282,8 @@ services:
 #      - identity_srv
 #      - operation_srv
 #      - promotion_srv
-#
-#
+
+
   admin_ui:
     container_name: admin_ui
     build:
@@ -295,12 +295,12 @@ services:
       options:
         max-file: "5"
         max-size: 10m
-    depends_on:
-      - admin_gw
-    links:
-      - admin_gw
+#    depends_on:
+#      - admin_gw
+#    links:
+#      - admin_gw
     volumes:
-      - ../sellgar.admin/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ../sellgar.admin.ui/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
     environment:
       - NODE_ENV=production
 #
