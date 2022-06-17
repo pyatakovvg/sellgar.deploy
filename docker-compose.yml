@@ -284,25 +284,25 @@ services:
 #      - promotion_srv
 #
 #
-#  admin_ui:
-#    container_name: admin_ui
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.admin-ui
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - admin_gw
-#    links:
-#      - admin_gw
-#    volumes:
-#      - ./clients/admin-ui/nginx/conf.d:/etc/nginx/conf.d:ro
-#    environment:
-#      - NODE_ENV=production
+  admin_ui:
+    container_name: admin_ui
+    build:
+      context: ./
+      dockerfile: Dockerfile.admin-ui
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - admin_gw
+    links:
+      - admin_gw
+    volumes:
+      - ../sellgar.admin/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
+    environment:
+      - NODE_ENV=production
 #
 #
 #  client_ui:
