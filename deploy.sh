@@ -1,5 +1,19 @@
 #!/bin/sh
 
+git pull
+
+cd ./sellgar.admin.ui
+
+git pull
+
+cd ../sellgar.gateway
+
+git pull
+
+cd ../sellgar.service
+
+git pull
+
 docker-compose up --build -d
 
 # shellcheck disable=SC2046
