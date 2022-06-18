@@ -40,25 +40,25 @@ services:
 #        max-file: "5"
 #        max-size: 10m
 #
-#
-#  identity_srv:
-#    container_name: identity_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.identity-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
+
+  identity_srv:
+    container_name: identity_srv
+    build:
+      context: ./
+      dockerfile: Dockerfile.identity-srv
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - db
 #      - mail_srv
-#    links:
-#      - db
+    links:
+      - db
 #      - mail_srv
-#
+
 #
 #  customer_srv:
 #    container_name: customer_srv
@@ -92,25 +92,25 @@ services:
 #      - db
 #    links:
 #      - db
-#
-#
-#  gallery_srv:
-#    container_name: gallery_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.gallery-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
-#    links:
-#      - db
-#
-#
+
+
+  file_srv:
+    container_name: file_srv
+    build:
+      context: ./
+      dockerfile: Dockerfile.file-srv
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - db
+    links:
+      - db
+
+
 #  promotion_srv:
 #    container_name: promotion_srv
 #    build:
@@ -195,35 +195,35 @@ services:
 #      - mail_srv
 #      - customer_srv
 #      - product_srv
-#
-#
-#  product_srv:
-#    container_name: product_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.product-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
+
+
+  product_srv:
+    container_name: product_srv
+    build:
+      context: ./
+      dockerfile: Dockerfile.product-srv
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - db
+#      - rabbit
+#      - mail_srv
+#      - shop_srv
+#      - file_srv
+#      - promotion_srv
+    links:
+      - db
 #      - rabbit
 #      - mail_srv
 #      - shop_srv
 #      - gallery_srv
 #      - promotion_srv
-#    links:
-#      - db
-#      - rabbit
-#      - mail_srv
-#      - shop_srv
-#      - gallery_srv
-#      - promotion_srv
-#
-#
+
+
   admin_gw:
     container_name: admin_gw
     build:
