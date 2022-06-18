@@ -2,19 +2,19 @@
 version: "3.7"
 services:
 
-#  db:
-#    container_name: postgre_sql
-#    build: ./postgresql
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    ports:
-#      - 50004:5432
-#
-#
+  db:
+    container_name: postgre_sql
+    build: ./postgresql
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    ports:
+      - 50004:5432
+
+
 #  rabbit:
 #    container_name: rabbit_mq
 #    build: ./rabbit
