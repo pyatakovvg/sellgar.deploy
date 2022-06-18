@@ -355,7 +355,7 @@ services:
       - admin_ui
     ports:
       - 80:80
-#      - 443:443
+      - 443:443
     volumes:
       - ./nginx/init-letsencrypt.sh:/etc/nginx/init-letsencrypt.sh
       - ./nginx/conf.d:/etc/nginx/conf.d
