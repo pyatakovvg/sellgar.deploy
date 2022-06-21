@@ -6,6 +6,10 @@ cd ./sellgar.admin.ui
 
 git pull
 
+cd ./sellgar.client.ui
+
+git pull
+
 cd ../sellgar.gateway
 
 git pull
