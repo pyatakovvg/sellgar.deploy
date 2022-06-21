@@ -305,25 +305,25 @@ services:
       - NODE_ENV=production
 
 
-#  client_ui:
-#    container_name: client_ui
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.client-ui
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - client_gw
-#    links:
-#      - client_gw
-#    volumes:
-#      - ./clients/client-ui/nginx/conf.d:/etc/nginx/conf.d:ro
-#    environment:
-#      - NODE_ENV=production
+  client_ui:
+    container_name: client_ui
+    build:
+      context: ./
+      dockerfile: Dockerfile.client-ui
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - client_gw
+    links:
+      - client_gw
+    volumes:
+      - ./sellgar.client.ui/apps/client/nginx/conf.d:/etc/nginx/conf.d:ro
+    environment:
+      - NODE_ENV=production
 
 
   certbot:
