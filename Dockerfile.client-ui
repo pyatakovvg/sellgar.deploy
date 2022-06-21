@@ -6,33 +6,23 @@ RUN apk update && apk add bash
 RUN npm install -g npm@latest
 RUN npm config set package-lock false
 
-WORKDIR /app
+WORKDIR /client
 
-COPY ./clients/client-ui/src                ./clients/client-ui/src
-COPY ./clients/client-ui/public             ./clients/client-ui/public
-COPY ./clients/client-ui/package.json       ./clients/client-ui
-COPY ./clients/client-ui/.env.production    ./clients/client-ui
-COPY ./ui.packages                          ./ui.packages
-COPY ./packages                             ./packages
-COPY ./modules                              ./modules
-COPY ./package.json                         ./
-COPY ./lerna.json                           ./
-COPY ./yarn.lock                            ./
-COPY ./build-client-packages.sh             ./
+COPY ./sellgar.client.ui/             ./
 
 RUN yarn
 
-RUN chmod +x ./build-client-packages.sh
-RUN ./build-client-packages.sh
+RUN chmod +x ./builder.sh
+RUN ./builder.sh
 
 # BUILD APPLICATION
-WORKDIR /app/clients/client-ui
+WORKDIR /client/app/client
 RUN ["yarn", "run", "build"]
 
 # START NGINX
 FROM nginx
 
-COPY --from=ui /app/clients/client-ui/build /app
+COPY --from=ui /client/app/client/build /client
 
 WORKDIR /etc/nginx
 

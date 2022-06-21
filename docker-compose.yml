@@ -255,31 +255,31 @@ services:
 #      - promotion_srv
 
 
-#  client_gw:
-#    container_name: client_gw
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.client-gw
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
+  client_gw:
+    container_name: client_gw
+    build:
+      context: ./
+      dockerfile: Dockerfile.client-gw
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
 #      - rabbit
 #      - shop_srv
-#      - product_srv
-#      - gallery_srv
-#      - identity_srv
+      - product_srv
+      - file_srv
+      - identity_srv
 #      - operation_srv
 #      - promotion_srv
-#    links:
+    links:
 #      - rabbit
 #      - shop_srv
-#      - product_srv
-#      - gallery_srv
-#      - identity_srv
+      - product_srv
+      - file_srv
+      - identity_srv
 #      - operation_srv
 #      - promotion_srv
 
