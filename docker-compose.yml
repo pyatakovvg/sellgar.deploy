@@ -320,8 +320,6 @@ services:
       - client_gw
     links:
       - client_gw
-    volumes:
-      - ./sellgar.client.ui/apps/client/nginx/conf.d:/etc/nginx/conf.d:ro
     environment:
       - NODE_ENV=production
 
