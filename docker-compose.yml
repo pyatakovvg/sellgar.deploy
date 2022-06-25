@@ -111,6 +111,23 @@ services:
       - db
 
 
+  checkout_srv:
+    container_name: checkout_srv
+    build:
+      context: ./
+      dockerfile: Dockerfile.checkout-srv
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - db
+    links:
+      - db
+
+
 #  promotion_srv:
 #    container_name: promotion_srv
 #    build:
