@@ -256,7 +256,7 @@ services:
 #      - rabbit
       - file_srv
       - product_srv
-#      - gallery_srv
+      - checkout_srv
       - identity_srv
 #      - operation_srv
 #      - customer_srv
@@ -265,7 +265,7 @@ services:
 #      - rabbit
       - file_srv
       - product_srv
-#      - gallery_srv
+      - checkout_srv
       - identity_srv
 #      - operation_srv
 #      - customer_srv
@@ -285,7 +285,7 @@ services:
         max-size: 10m
     depends_on:
 #      - rabbit
-#      - shop_srv
+      - checkout_srv
       - product_srv
       - file_srv
       - identity_srv
@@ -293,7 +293,7 @@ services:
 #      - promotion_srv
     links:
 #      - rabbit
-#      - shop_srv
+      - checkout_srv
       - product_srv
       - file_srv
       - identity_srv
