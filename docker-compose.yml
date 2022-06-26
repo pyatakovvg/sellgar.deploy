@@ -207,6 +207,10 @@ services:
       options:
         max-file: "5"
         max-size: 10m
+    depends_on:
+      - admin_ui
+      - client_ui
+      - client_gw
     links:
       - admin_ui
       - client_ui
