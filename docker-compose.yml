@@ -131,7 +131,7 @@ services:
         max-file: "5"
         max-size: 10m
     depends_on:
-      - QD5NJJ,
+      - checkout_srv
       - product_srv
       - file_srv
       - identity_srv
