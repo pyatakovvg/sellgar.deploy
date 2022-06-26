@@ -210,6 +210,7 @@ services:
     links:
       - admin_ui
       - client_ui
+      - client_gw
     ports:
       - 80:80
       - 443:443
