@@ -26,20 +26,7 @@ services:
 #        max-size: 10m
 #    ports:
 #      - 50002:15672
-#
-#
-#  mail_srv:
-#    container_name: mail_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.mail-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#
+
 
   identity_srv:
     container_name: identity_srv
@@ -54,44 +41,8 @@ services:
         max-size: 10m
     depends_on:
       - db
-#      - mail_srv
     links:
       - db
-#      - mail_srv
-
-#
-#  customer_srv:
-#    container_name: customer_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.customer-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
-#    links:
-#      - db
-#
-#
-#  seller_srv:
-#    container_name: seller_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.seller-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
-#    links:
-#      - db
 
 
   file_srv:
@@ -128,92 +79,6 @@ services:
       - db
 
 
-#  promotion_srv:
-#    container_name: promotion_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.promotion-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
-#      - rabbit
-#    links:
-#      - db
-#      - rabbit
-#
-#
-#  shop_srv:
-#    container_name: shop_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.shop-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
-#      - rabbit
-#    links:
-#      - db
-#      - rabbit
-#
-#
-#  pikassa_srv:
-#    container_name: pikassa_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.pikassa-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
-#      - rabbit
-#    links:
-#      - db
-#      - rabbit
-#    ports:
-#    - 15051:8080
-#
-#
-#  operation_srv:
-#    container_name: operation_srv
-#    build:
-#      context: ./
-#      dockerfile: Dockerfile.operation-srv
-#    restart: always
-#    logging:
-#      driver: "json-file"
-#      options:
-#        max-file: "5"
-#        max-size: 10m
-#    depends_on:
-#      - db
-#      - rabbit
-#      - mail_srv
-#      - customer_srv
-#      - promotion_srv
-#      - pikassa_srv
-#      - gallery_srv
-#    links:
-#      - db
-#      - rabbit
-#      - mail_srv
-#      - customer_srv
-#      - product_srv
-
-
   product_srv:
     container_name: product_srv
     build:
@@ -227,18 +92,8 @@ services:
         max-size: 10m
     depends_on:
       - db
-#      - rabbit
-#      - mail_srv
-#      - shop_srv
-#      - file_srv
-#      - promotion_srv
     links:
       - db
-#      - rabbit
-#      - mail_srv
-#      - shop_srv
-#      - gallery_srv
-#      - promotion_srv
 
 
   admin_gw:
@@ -253,23 +108,15 @@ services:
         max-file: "5"
         max-size: 10m
     depends_on:
-#      - rabbit
       - file_srv
       - product_srv
       - checkout_srv
       - identity_srv
-#      - operation_srv
-#      - customer_srv
-#      - promotion_srv
     links:
-#      - rabbit
       - file_srv
       - product_srv
       - checkout_srv
       - identity_srv
-#      - operation_srv
-#      - customer_srv
-#      - promotion_srv
 
 
   client_gw:
@@ -284,21 +131,15 @@ services:
         max-file: "5"
         max-size: 10m
     depends_on:
-#      - rabbit
-      - checkout_srv
+      - QD5NJJ,
       - product_srv
       - file_srv
       - identity_srv
-#      - operation_srv
-#      - promotion_srv
     links:
-#      - rabbit
       - checkout_srv
       - product_srv
       - file_srv
       - identity_srv
-#      - operation_srv
-#      - promotion_srv
 
 
   admin_ui:
