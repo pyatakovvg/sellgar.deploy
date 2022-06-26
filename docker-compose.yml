@@ -2,17 +2,17 @@
 version: "3.7"
 services:
 
-  db:
-    container_name: postgre_sql
-    build: ./postgresql
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    ports:
-      - 50004:5432
+#  db:
+#    container_name: postgre_sql
+#    build: ./postgresql
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    ports:
+#      - 50004:5432
 
 
 #  rabbit:
@@ -41,23 +41,23 @@ services:
 #        max-size: 10m
 #
 
-  identity_srv:
-    container_name: identity_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.identity-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-#      - mail_srv
-    links:
-      - db
-#      - mail_srv
+#  identity_srv:
+#    container_name: identity_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.identity-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+##      - mail_srv
+#    links:
+#      - db
+##      - mail_srv
 
 #
 #  customer_srv:
@@ -94,21 +94,21 @@ services:
 #      - db
 
 
-  file_srv:
-    container_name: file_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.file-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-    links:
-      - db
+#  file_srv:
+#    container_name: file_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.file-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+#    links:
+#      - db
 
 
   checkout_srv:
@@ -214,31 +214,31 @@ services:
 #      - product_srv
 
 
-  product_srv:
-    container_name: product_srv
-    build:
-      context: ./
-      dockerfile: Dockerfile.product-srv
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - db
-#      - rabbit
-#      - mail_srv
-#      - shop_srv
-#      - file_srv
-#      - promotion_srv
-    links:
-      - db
-#      - rabbit
-#      - mail_srv
-#      - shop_srv
-#      - gallery_srv
-#      - promotion_srv
+#  product_srv:
+#    container_name: product_srv
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.product-srv
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - db
+##      - rabbit
+##      - mail_srv
+##      - shop_srv
+##      - file_srv
+##      - promotion_srv
+#    links:
+#      - db
+##      - rabbit
+##      - mail_srv
+##      - shop_srv
+##      - gallery_srv
+##      - promotion_srv
 
 
   admin_gw:
@@ -301,44 +301,44 @@ services:
 #      - promotion_srv
 
 
-  admin_ui:
-    container_name: admin_ui
-    build:
-      context: ./
-      dockerfile: Dockerfile.admin-ui
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - admin_gw
-    links:
-      - admin_gw
-    volumes:
-      - ./sellgar.admin.ui/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
-    environment:
-      - NODE_ENV=production
-
-
-  client_ui:
-    container_name: client_ui
-    build:
-      context: ./
-      dockerfile: Dockerfile.client-ui
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "5"
-        max-size: 10m
-    depends_on:
-      - client_gw
-    links:
-      - client_gw
-    environment:
-      - NODE_ENV=production
+#  admin_ui:
+#    container_name: admin_ui
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.admin-ui
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - admin_gw
+#    links:
+#      - admin_gw
+#    volumes:
+#      - ./sellgar.admin.ui/app/client/nginx/conf.d:/etc/nginx/conf.d:ro
+#    environment:
+#      - NODE_ENV=production
+#
+#
+#  client_ui:
+#    container_name: client_ui
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile.client-ui
+#    restart: always
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-file: "5"
+#        max-size: 10m
+#    depends_on:
+#      - client_gw
+#    links:
+#      - client_gw
+#    environment:
+#      - NODE_ENV=production
 
 
   certbot:
