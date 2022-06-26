@@ -209,6 +209,7 @@ services:
         max-size: 10m
     links:
       - admin_ui
+      - client_ui
     ports:
       - 80:80
       - 443:443
