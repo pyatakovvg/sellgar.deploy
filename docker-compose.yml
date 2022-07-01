@@ -41,8 +41,10 @@ services:
         max-size: 10m
     depends_on:
       - db
+      - rabbit
     links:
       - db
+      - rabbit
 
 
   file_srv:
@@ -58,8 +60,10 @@ services:
         max-size: 10m
     depends_on:
       - db
+      - rabbit
     links:
       - db
+      - rabbit
 
 
   comment_srv:
@@ -75,8 +79,10 @@ services:
         max-size: 10m
     depends_on:
       - db
+      - rabbit
     links:
       - db
+      - rabbit
 
 
   checkout_srv:
@@ -92,8 +98,10 @@ services:
         max-size: 10m
     depends_on:
       - db
+      - rabbit
     links:
       - db
+      - rabbit
 
 
   product_srv:
@@ -109,8 +117,10 @@ services:
         max-size: 10m
     depends_on:
       - db
+      - rabbit
     links:
       - db
+      - rabbit
 
 
   admin_gw:
