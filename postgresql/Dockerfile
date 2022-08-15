@@ -11,8 +11,7 @@ RUN /etc/init.d/postgresql start &&\
     createdb -O admin product_srv &&\
     createdb -O admin identity_srv &&\
     createdb -O admin file_srv &&\
-    createdb -O admin checkout_srv &&\
-    createdb -O admin comment_srv
+    createdb -O admin checkout_srv
 #    createdb -O admin customer_srv &&\
 #    createdb -O admin seller_srv &&\
 #    createdb -O admin promotion_srv
