@@ -223,10 +223,12 @@ services:
       - admin_ui
       - client_ui
       - client_gw
+      - admin_gw
     links:
       - admin_ui
       - client_ui
       - client_gw
+      - admin_gw
     ports:
       - 80:80
       - 443:443
