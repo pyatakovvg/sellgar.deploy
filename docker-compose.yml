@@ -66,6 +66,25 @@ services:
       - rabbit
 
 
+  comment_srv:
+    container_name: comment_srv
+    build:
+      context: ./
+      dockerfile: Dockerfile.comment-srv
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - db
+      - rabbit
+    links:
+      - db
+      - rabbit
+
+
   checkout_srv:
     container_name: checkout_srv
     build:
