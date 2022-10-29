@@ -47,6 +47,25 @@ services:
       - rabbit
 
 
+  customer_srv:
+    container_name: customer_srv
+    build:
+      context: ./
+      dockerfile: Dockerfile.customer-srv
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: 10m
+    depends_on:
+      - db
+      - rabbit
+    links:
+      - db
+      - rabbit
+
+
   file_srv:
     container_name: file_srv
     build:
