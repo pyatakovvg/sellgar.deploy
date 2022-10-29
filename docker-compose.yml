@@ -118,9 +118,13 @@ services:
     depends_on:
       - db
       - rabbit
+      - file_srv
+      - customer_srv
     links:
       - db
       - rabbit
+      - file_srv
+      - customer_srv
 
 
   product_srv:
@@ -137,9 +141,13 @@ services:
     depends_on:
       - db
       - rabbit
+      - file_srv
+      - checkout_srv
     links:
       - db
       - rabbit
+      - file_srv
+      - checkout_srv
 
 
   admin_gw:
@@ -159,12 +167,14 @@ services:
       - checkout_srv
       - identity_srv
       - comment_srv
+      - customer_srv
     links:
       - file_srv
       - product_srv
       - checkout_srv
       - identity_srv
       - comment_srv
+      - customer_srv
 
 
   client_gw:
@@ -184,12 +194,14 @@ services:
       - file_srv
       - identity_srv
       - comment_srv
+      - customer_srv
     links:
       - checkout_srv
       - product_srv
       - file_srv
       - identity_srv
       - comment_srv
+      - customer_srv
 
 
   admin_ui:
