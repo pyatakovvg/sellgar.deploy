@@ -1,5 +1,7 @@
 #!/bin/sh
 
+docker rmi $(docker images -f dangling=true -q) --force
+
 git pull
 
 cd ./sellgar.admin.ui
