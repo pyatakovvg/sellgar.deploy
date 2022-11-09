@@ -9,17 +9,7 @@ WORKDIR /admin
 
 COPY ./sellgar.admin.ui/             ./
 
-RUN FREE=$(free -m);
-RUN echo "FREE: ${FREE}"
-RUN FREE_FINAL=$(echo "$FREE" | grep -F Mem:  | grep -o "[0-9]*" | grep -o -m1 "^[0-9]*")
-RUN echo "FREE_FINAL: ${FREE_FINAL}"
-RUN MEM_LIMIT=$(($FREE_FINAL-400))
-RUN echo "MEM_LIMIT: ${MEM_LIMIT}"
-RUN echo " - "
-
-RUN export MEMORY_LIMIT="${MEM_LIMIT:=3500}";
-
-RUN export NODE_OPTIONS="--max-old-space-size=${MEMORY_LIMIT}"
+RUN export NODE_OPTIONS="--max-old-space-size=512"
 RUN echo "NODE_OPTIONS: ${NODE_OPTIONS}"
 
 RUN yarn
