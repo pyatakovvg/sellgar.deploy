@@ -9,9 +9,6 @@ WORKDIR /admin
 
 COPY ./sellgar.admin.ui/             ./
 
-RUN export NODE_OPTIONS="--max-old-space-size=512"
-RUN echo "NODE_OPTIONS: ${NODE_OPTIONS}"
-
 RUN yarn
 
 RUN chmod +x ./builder.sh
