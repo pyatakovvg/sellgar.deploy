@@ -4,7 +4,6 @@ FROM node:18-alpine3.15 as ui
 
 RUN apk update && apk add bash
 RUN npm install -g npm@latest
-RUN npm install -g yarn@latest
 RUN npm config set package-lock false
 
 WORKDIR /admin
@@ -19,7 +18,7 @@ RUN ./builder.sh
 
 # BUILD APPLICATION
 WORKDIR /admin/app/client
-RUN ["yarn", "run", "build"]
+RUN ["npm", "run", "build"]
 
 # START NGINX
 FROM nginx
