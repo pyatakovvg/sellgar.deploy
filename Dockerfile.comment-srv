@@ -16,4 +16,4 @@ RUN ./builder.sh
 
 # BUILD APPLICATION
 WORKDIR /server/apps/comment_srv
-ENTRYPOINT ["yarn", "run", "start"]
+ENTRYPOINT ["npm", "run", "start"]

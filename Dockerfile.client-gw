@@ -16,4 +16,4 @@ RUN ./builder.sh
 
 # BUILD APPLICATION
 WORKDIR /gateway/apps/client_gw
-ENTRYPOINT ["yarn", "run", "start"]
+ENTRYPOINT ["npm", "run", "start"]

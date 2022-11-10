@@ -16,4 +16,4 @@ RUN ./builder.sh
 
 # BUILD APPLICATION
 WORKDIR /server/apps/checkout_srv
-ENTRYPOINT ["yarn", "run", "start"]
+ENTRYPOINT ["npm", "run", "start"]
