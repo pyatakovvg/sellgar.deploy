@@ -1,5 +1,5 @@
 # BUILD APP
-FROM node:18-alpine3.15 as ui
+FROM node:18-alpine3.15
 
 WORKDIR /client
 
