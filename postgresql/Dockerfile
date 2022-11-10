@@ -13,8 +13,8 @@ RUN /etc/init.d/postgresql start &&\
     createdb -O admin file_srv &&\
     createdb -O admin checkout_srv && \
     createdb -O admin customer_srv && \
-    createdb -O admin comment_srv
-#    createdb -O admin seller_srv &&\
+    createdb -O admin comment_srv &&\
+    createdb -O admin pikassa_srv
 #    createdb -O admin promotion_srv
 
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/10/main/pg_hba.conf
