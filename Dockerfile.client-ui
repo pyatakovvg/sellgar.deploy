@@ -17,7 +17,7 @@ RUN chmod +x ./builder.sh && ./builder.sh
 
 FROM node:18-alpine3.15
 
-COPY --from=build /client/apps /client/apps
+COPY --from=build /client /client
 
 # BUILD APPLICATION
 WORKDIR /client/apps/client
