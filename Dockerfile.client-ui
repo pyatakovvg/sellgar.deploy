@@ -1,5 +1,5 @@
 # BUILD APP
-FROM node:18-alpine3.15
+FROM node:18-alpine3.15 as build
 
 WORKDIR /client
 
@@ -14,6 +14,10 @@ RUN yarn install --frozen-lockfile && \
 
 RUN chmod +x ./builder.sh && ./builder.sh
 
+
+FROM node:18-alpine3.15
+
+COPY --from=build /client/apps /client/apps
 
 # BUILD APPLICATION
 WORKDIR /client/apps/client
