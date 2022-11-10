@@ -1,20 +1,20 @@
-
 # BUILD APP
 FROM node:18-alpine3.15 as ui
-
-RUN npm install -g npm@latest
-RUN npm config set package-lock false
 
 WORKDIR /client
 
 COPY ./sellgar.client.ui/                ./
 
-RUN yarn
+RUN which yarn || npm i yarn -g
 
-RUN chmod +x ./builder.sh
-RUN ./builder.sh
+#Enabled yarn audit
+RUN yarn install --frozen-lockfile && \
+    yarn add improved-yarn-audit@2.2.1 -W && \
+    yarn run improved-yarn-audit --min-severity moderate --ignore-dev-deps
+
+RUN chmod +x ./builder.sh && ./builder.sh
+
 
 # BUILD APPLICATION
 WORKDIR /client/apps/client
-ENTRYPOINT ["npm", "run", "build"]
-ENTRYPOINT ["npm", "run", "start"]
+ENTRYPOINT ["yarn", "start"]
