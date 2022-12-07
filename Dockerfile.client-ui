@@ -10,9 +10,8 @@ RUN which yarn || npm i yarn -g
 #Enabled yarn audit
 RUN yarn install --frozen-lockfile && \
     yarn add improved-yarn-audit@2.2.1 -W && \
-    yarn run improved-yarn-audit --min-severity moderate --ignore-dev-deps
-
-RUN chmod +x ./builder.sh && ./builder.sh
+    yarn run improved-yarn-audit --min-severity moderate --ignore-dev-deps && \
+    yarn build
 
 
 FROM node:18-alpine3.15
