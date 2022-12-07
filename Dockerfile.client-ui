@@ -8,11 +8,8 @@ COPY ./sellgar.client.ui/                ./
 RUN which yarn || npm i yarn -g
 
 #Enabled yarn audit
-RUN yarn install --frozen-lockfile && \
-    yarn add improved-yarn-audit@2.2.1 -W && \
-    yarn run improved-yarn-audit --min-severity moderate --ignore-dev-deps
-
-RUN yarn run build
+RUN yarn --frozen-lockfile
+RUN yarn build
 
 
 FROM node:18-alpine3.15
