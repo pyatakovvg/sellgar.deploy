@@ -240,7 +240,7 @@ services:
       - client_gw
     links:
       - client_gw
-      -
+
 
   certbot:
     user: root
