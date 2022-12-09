@@ -12,14 +12,6 @@ RUN yarn --frozen-lockfile && \
     yarn add improved-yarn-audit@2.2.1 -W && \
     yarn run improved-yarn-audit --min-severity moderate --ignore-dev-deps
 
-ENV NODE_ENV "production"
-ENV TITLE "Sellgar - интернет-магазин. Доставка по Крыму"
-ENV PHONE_CONTACT "+7 (999) 999-99-99"
-ENV EMAIL_CONTACT "support@sellgar.ru"
-ENV WEBSITE_URL "https://sellgartest.ru"
-ENV GATEWAY_SERVICE_API "https://sellgartest.ru/service"
-ENV TAKE_PRODUCTS 10
-
 RUN yarn build
 
 
