@@ -240,14 +240,16 @@ services:
       - client_gw
     links:
       - client_gw
+    env_file:
+      - .env
     environment:
-      NODE_ENV: "production"
-      TITLE: "Sellgar - интернет-магазин. Доставка по Крыму"
-      PHONE_CONTACT: "+7 (999) 999-99-99"
-      EMAIL_CONTACT: "support@sellgar.ru"
-      WEBSITE_URL: "https://sellgartest.ru"
-      GATEWAY_SERVICE_API: "https://sellgartest.ru/service"
-      TAKE_PRODUCTS: 10
+      - NODE_ENV="production"
+      - TITLE="Sellgar - интернет-магазин. Доставка по Крыму"
+      - PHONE_CONTACT="+7 (999) 999-99-99"
+      - EMAIL_CONTACT="support@sellgar.ru"
+      - WEBSITE_URL="https://sellgartest.ru"
+      - GATEWAY_SERVICE_API="https://sellgartest.ru/service"
+      - TAKE_PRODUCTS=10
 
 
   certbot:
