@@ -8,16 +8,10 @@ RUN npm config set package-lock false
 WORKDIR /admin
 
 COPY ./sellgar.admin.ui/             ./
-RUN ls -l
 
 RUN yarn
+RUN yarn build
 
-RUN chmod +x ./builder.sh
-RUN ./builder.sh
-
-# BUILD APPLICATION
-WORKDIR /admin/app/client
-RUN ["npm", "run", "build"]
 
 # START NGINX
 FROM nginx

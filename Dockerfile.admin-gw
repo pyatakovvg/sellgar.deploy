@@ -10,9 +10,7 @@ WORKDIR /gateway
 COPY ./sellgar.gateway/                ./
 
 RUN yarn
-
-RUN chmod +x ./builder.sh
-RUN ./builder.sh
+RUN yarn build
 
 # BUILD APPLICATION
 WORKDIR /gateway/apps/admin_gw

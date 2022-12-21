@@ -10,9 +10,7 @@ WORKDIR /server
 COPY ./sellgar.service/                ./
 
 RUN yarn
-
-RUN chmod +x ./builder.sh
-RUN ./builder.sh
+RUN yarn build
 
 # BUILD APPLICATION
 WORKDIR /server/apps/file_srv
