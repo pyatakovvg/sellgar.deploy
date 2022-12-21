@@ -1,5 +1,5 @@
 # BUILD APP
-FROM node:18-alpine3.15 as build
+FROM node:18-alpine3.16 as build
 
 WORKDIR /client
 
